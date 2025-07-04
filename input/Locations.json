@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Pub",
+    "coordinates": [3, 3]
+  },
+  {
+    "name": "Bar",
+    "coordinates": [12, 12]
+  }
+]

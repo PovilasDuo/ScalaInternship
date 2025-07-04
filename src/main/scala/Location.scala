@@ -19,9 +19,15 @@ object Location {
 
     json => {
       val obj = json.obj
-      val name = obj("name").str
-      val coords = obj("coordinates").arr.map(_.num.toInt).toList
-      fromList(name, coords)
+
+      if (obj.value.contains("coordinates") && obj.value.contains("name")) {
+        val name = obj("name").str
+        val coords = obj("coordinates").arr.map(_.num.toInt).toList
+        fromList(name, coords)
+      }
+      else {
+        throw new Exception("Input JSON does not contain the required structure")
+      }
     }
   )
 }
