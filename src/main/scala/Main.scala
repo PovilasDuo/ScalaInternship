@@ -22,19 +22,48 @@ object Main {
 }
 
 def readLocations(filePath: String) : List[Location] = {
-  val source = Source.fromFile(filePath)
-  val content = source.mkString
-  read[List[Location]](content)
+  if (os.exists(os.Path(filePath))) {
+    val source = Source.fromFile(filePath)
+    val content =
+      try source.mkString
+      catch case _: Throwable => throw new Exception("Failed processing the file")
+      finally source.close()
+
+    val originalList = read[List[Location]](content)
+    val distinctList = originalList.distinctBy(_.name)
+
+    if (!(originalList sameElements distinctList)) {
+      println("Duplicate regions found. Accepting the first entry")
+    }
+    distinctList
+  }
+  else {
+    throw new Exception("Location file was not found")
+  }
 }
 
 def readRegions(filePath: String) : List[Region] = {
-  val source = Source.fromFile(filePath)
-  val content = source.mkString
-  read[List[Region]](content)
+  if (os.exists(os.Path(filePath))) {
+    val source = Source.fromFile(filePath)
+    val content =
+      try source.mkString
+      catch case _: Throwable => throw new Exception("Failed processing the file")
+      finally source.close()
+
+    val originalList = read[List[Region]](content)
+    val distinctList = originalList.distinctBy(_.name)
+    if (!(originalList sameElements distinctList)) {
+      println("Duplicate locations found. Accepting the first entry")
+    }
+    distinctList
+  }
+  else {
+    throw new Exception("Region file was not found")
+  }
 }
 
 def writeResultsFile(results:List[Results], outputFile: String): Unit = {
-  val path = os.Path("C:\\Users\\Neda\\Desktop\\Povilo\\ScalaInternship\\ScalaInternship\\output" + outputFile)
+  val path = os.Path(os.pwd.toString + "/output/"+ outputFile)
   if os.exists(path) then os.remove(path)
   os.write(path, write(results, indent = 2))
 }
@@ -42,15 +71,11 @@ def writeResultsFile(results:List[Results], outputFile: String): Unit = {
 def matchLocationsWithRegions(locations: List[Location], regions: List[Region]): List[Results]  = {
   regions.map { region =>
     val matched = locations.filter { loc =>
-      region.polygon.exists { polygon =>
-        if (polygon.points.length >= 3) {
-          WindingNumberPointPolygon(polygon, loc.coordinates)!= 0
-        } else false
+      region.polygons.exists {
+        polygon =>
+          WindingNumberPointPolygon(polygon, loc.coordinates) != 0
+        }
       }
-    }
     Results(region.name, matched.map(_.name))
-  }.filter(_.matchedLocations.nonEmpty)
+    }.filter(_.matchedLocations.nonEmpty)
 }
-
-
-

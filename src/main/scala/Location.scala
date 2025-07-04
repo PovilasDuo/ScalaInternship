@@ -1,5 +1,4 @@
 import upickle.default.*
-import upickle.default.{ReadWriter, macroRW, read, write}
 
 case class Location(name: String, coordinates: Point) {
   require(name.nonEmpty, "Location 'name' can not be empty")
@@ -26,7 +25,7 @@ object Location {
         fromList(name, coords)
       }
       else {
-        throw new Exception("Input JSON does not contain the required structure")
+        throw new Exception("Location input JSON does not contain the required structure")
       }
     }
   )

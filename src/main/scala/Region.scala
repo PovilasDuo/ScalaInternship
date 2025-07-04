@@ -1,8 +1,8 @@
 import upickle.default.*
 
-case class Region(name: String, polygon: List[Polygon]) {
+case class Region(name: String, polygons: List[Polygon]) {
   require(name.nonEmpty, "Location 'name' can not be empty")
-  require(polygon.nonEmpty, "Region can not have no polygons")
+  require(polygons.nonEmpty, "Region can not have no polygons")
 }
 
 object Region {
@@ -10,7 +10,7 @@ object Region {
     reg => ujson.Obj(
       "name" -> reg.name,
       "coordinates" -> ujson.Arr(
-        reg.polygon.map { polygon =>
+        reg.polygons.map { polygon =>
           ujson.Arr(
             polygon.points.map { point =>
               ujson.Arr(point.x, point.y)
@@ -28,20 +28,32 @@ object Region {
         val polygons = obj("coordinates").arr.map { polygonGroup =>
           val points = polygonGroup.arr.map {
             case ujson.Arr(values) if values.length == 2 =>
-              val x = values(0).num.toInt
-              val y = values(1).num.toInt
+
+              val xInputValue = values(0).value
+              val yInputValue = values(1).value
+
+              val x: Int = xInputValue match
+                case _: Number =>
+                  values(0).num.toInt
+                case _ => throw new Exception(s"Expected number type longitude but got '$xInputValue'")
+
+              val y: Int = values(1).value match
+                case _: Number =>
+                  values(0).num.toInt
+                case _ => throw new Exception(s"Expected number type longitude but got $yInputValue")
+
               Point(x, y)
             case other => throw new Exception(s"Expected longitude and latitude got $other")
           }.toList
           Polygon.safePolygon(points) match {
             case Some(polygon) => Polygon(points)
-            case None => throw new Exception("Invalid input: less than 3 points")
+            case None => throw new Exception("Invalid input: less than 3 points in a region")
           }
         }.toList
         Region(name, polygons)
       }
       else {
-        throw new Exception("Input JSON does not contain the required structure")
+        throw new Exception("Region input JSON does not contain the required structure")
       }
     }
   )

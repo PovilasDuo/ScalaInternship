@@ -1,5 +1,9 @@
 [
   {
+    "name": "Ab",
+    "coordinates": [3, 4]
+  },
+  {
     "name": "Pub",
     "coordinates": [3, 3]
   },

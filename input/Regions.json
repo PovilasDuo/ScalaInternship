@@ -1,6 +1,12 @@
 [
   {
-    "aa": "Central Park",
+    "name": "Central Park",
+    "coordinates": [
+      [["a", 0, 0], [0, 5]]
+    ]
+  },
+  {
+    "name": "South Park",
     "coordinates": [
       [[0, 0], [0, 5], [5, 5], [5, 0]]
     ]
