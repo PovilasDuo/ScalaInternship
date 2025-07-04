@@ -11,7 +11,6 @@ class WindingNumber
 
 object WindingNumber {
 
-
   // wn_PnPoly(): winding number test for a point in a polygon
   //      Input:   P = a point,
   //               V[] = vertex points of a polygon V[n+1] with V[n]=V[0]
@@ -43,7 +42,6 @@ object WindingNumber {
   //    Return: >0 for P2 left of the line through P0 and P1
   //            =0 for P2  on the line
   //            <0 for P2  right of the line
-  //    See: Algorithm 1 "Area of Triangles and Polygons"
-  private def IsLeft(P0: Point, P1: Point, P2: Point): Int = (P1.x - P0.x) * (P2.y - P0.y)
-    - (P2.x - P0.x) * (P1.y - P0.y)
+  private def IsLeft(P0: Point, P1: Point, P2: Point): Int =
+    (P1.x - P0.x) * (P2.y - P0.y) - (P2.x - P0.x) * (P1.y - P0.y)
 }

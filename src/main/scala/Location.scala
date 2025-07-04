@@ -1,7 +1,9 @@
 import upickle.default.*
 import upickle.default.{ReadWriter, macroRW, read, write}
 
-case class Location(name: String, coordinates: Point)
+case class Location(name: String, coordinates: Point) {
+  require(name.nonEmpty, "Location 'name' can not be empty")
+}
 
 object Location {
   private def fromList(name: String, coordinatesList: List[Int]) : Location = {
