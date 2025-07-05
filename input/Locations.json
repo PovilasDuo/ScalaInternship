@@ -1,5 +1,9 @@
 [
   {
+    "name": "Golden Tower",
+    "coordinates": [55.3067, 25.2636]
+  },
+  {
     "name": "Pub",
     "coordinates": [-0.1276, 51.5072]
   },
