@@ -1,7 +1,9 @@
+package models
+
 import upickle.default.*
 
 case class Region(name: String, polygons: List[Polygon]) {
-  require(name.nonEmpty, "Location 'name' can not be empty")
+  require(name.nonEmpty, "Region 'name' can not be empty")
   require(polygons.nonEmpty, "Region can not have no polygons")
 }
 
@@ -32,21 +34,21 @@ object Region {
               val xInputValue = values(0).value
               val yInputValue = values(1).value
 
-              val x: Int = xInputValue match
+              val x: Double = xInputValue match
                 case _: Number =>
-                  values(0).num.toInt
-                case _ => throw new Exception(s"Expected number type longitude but got '$xInputValue'")
+                  values(0).num
+                case _ => throw new IllegalArgumentException(s"Expected number type longitude but got '$xInputValue'")
 
-              val y: Int = values(1).value match
+              val y: Double = yInputValue match
                 case _: Number =>
-                  values(0).num.toInt
-                case _ => throw new Exception(s"Expected number type longitude but got $yInputValue")
+                  values(1).num
+                case _ => throw new IllegalArgumentException(s"Expected number type longitude but got $yInputValue")
 
               Point(x, y)
-            case other => throw new Exception(s"Expected longitude and latitude got $other")
+            case other => throw new IllegalArgumentException(s"Expected region longitude and latitude got $other")
           }.toList
-          Polygon.safePolygon(points) match {
-            case Some(polygon) => Polygon(points)
+          Polygon.fromPoints(points) match {
+            case Some(polygon) => polygon
             case None => throw new Exception("Invalid input: less than 3 points in a region")
           }
         }.toList

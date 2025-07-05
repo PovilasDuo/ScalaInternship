@@ -1,3 +1,5 @@
+package models
+
 // Copyright 2000 softSurfer, 2012 Dan Sunday
 // This code may be freely used and modified for any purpose
 // providing that this copyright notice is included with it.
@@ -7,15 +9,13 @@
 
 import scala.annotation.tailrec
 
-class WindingNumber
-
 object WindingNumber {
-
   // wn_PnPoly(): winding number test for a point in a polygon
   //      Input:   P = a point,
   //               V[] = vertex points of a polygon V[n+1] with V[n]=V[0]
   //      Return:  wn = the winding number (=0 only when P is outside)
-  def WindingNumberPointPolygon(V: Polygon, P: Point): Int = {
+  def windingNumberPointPolygon(V: Polygon, P: Point): Int = {
+    require(V.points.nonEmpty)
 
     val n = V.points.length
 
@@ -33,7 +33,6 @@ object WindingNumber {
             wn
         loop(V, P, newWn, i + 1)
     }
-
     loop(V, P)
   }
 
@@ -42,6 +41,6 @@ object WindingNumber {
   //    Return: >0 for P2 left of the line through P0 and P1
   //            =0 for P2  on the line
   //            <0 for P2  right of the line
-  private def IsLeft(P0: Point, P1: Point, P2: Point): Int =
+  private def IsLeft(P0: Point, P1: Point, P2: Point): Double =
     (P1.x - P0.x) * (P2.y - P0.y) - (P2.x - P0.x) * (P1.y - P0.y)
 }
