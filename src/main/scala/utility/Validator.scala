@@ -27,12 +27,7 @@ object Validator {
     if (resultsList.isEmpty) println("None of the locations matched with the regions")
   }
 
-  def makePathsAbsolute(filePath: String): Path = {
-    os.pwd / filePath
-  }
-
   def checkIfFilePathIsRelative(filePath: String): Boolean = {
-    val path = Paths.get(filePath)
-    !path.isAbsolute
+    !Paths.get(filePath).isAbsolute
   }
 }

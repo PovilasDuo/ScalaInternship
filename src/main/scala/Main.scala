@@ -4,9 +4,7 @@ import utility.RegionMatcher.matchLocationsWithRegions
 
 object Main {
   def main(args: Array[String]): Unit = {
-
     val argMap = validateInput(args)
-
     val regionFile = argMap.getOrElse("regions", sys.error("Missing --regions argument"))
     val locationFile = argMap.getOrElse("locations", sys.error("Missing --locations argument"))
     val outputFile = argMap.getOrElse("output", sys.error("Missing --output argument"))

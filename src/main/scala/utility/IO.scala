@@ -29,8 +29,12 @@ object IO {
       finally source.close()
     }
     else {
-      throw new NoSuchFileException("Region file was not found")
+      throw new NoSuchFileException(s"Input file was not found with such path: $filePath")
     }
+  }
+
+  def makePathsAbsolute(filePath: String): Path = {
+    os.pwd / filePath
   }
 
   def readLocations(filePath: String): List[Location] = {
