@@ -1,12 +1,19 @@
 package utility
 
 import models.{Location, Region, Results}
+import os.Path
 import upickle.default.*
+import utility.Validator.*
+
+import java.nio.file.NoSuchFileException
 import scala.io.Source
 
 object IO {
   def readLocations(filePath: String): List[Location] = {
-    if (os.exists(os.Path(filePath))) {
+    val correctFilePath: Path = if checkIfFilePathIsRelative(filePath) then makePathsAbsolute(filePath)
+    else os.Path(filePath)
+
+    if (os.exists(correctFilePath)) {
       val source = Source.fromFile(filePath)
       val content =
         try source.mkString
@@ -17,12 +24,12 @@ object IO {
       val distinctList = originalList.distinctBy(_.name)
 
       if (!(originalList sameElements distinctList)) {
-        println("Duplicate regions found. Accepting the first entry")
+        println("Duplicate locations found. Accepting the first entry")
       }
       distinctList
     }
     else {
-      throw new NoSuchElementException("Location file was not found")
+      throw new NoSuchFileException(filePath)
     }
   }
 
@@ -37,12 +44,12 @@ object IO {
       val originalList = read[List[Region]](content)
       val distinctList = originalList.distinctBy(_.name)
       if (!(originalList sameElements distinctList)) {
-        println("Duplicate locations found. Accepting the first entry")
+        println("Duplicate regions found. Accepting the first entry")
       }
       distinctList
     }
     else {
-      throw new NoSuchElementException("Region file was not found")
+      throw new NoSuchFileException("Region file was not found")
     }
   }
 

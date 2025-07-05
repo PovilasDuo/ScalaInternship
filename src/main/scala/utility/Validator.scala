@@ -1,6 +1,9 @@
 package utility
 
 import models.Results
+import os.Path
+
+import java.nio.file.Paths
 
 object Validator {
   def validateInput(args: Array[String]): Map[String, String] = {
@@ -22,5 +25,14 @@ object Validator {
 
   def validateOutput(resultsList: List[Results]): Unit = {
     if (resultsList.isEmpty) println("None of the locations matched with the regions")
+  }
+
+  def makePathsAbsolute(filePath: String): Path = {
+    os.pwd / filePath
+  }
+
+  def checkIfFilePathIsRelative(filePath: String): Boolean = {
+    val path = Paths.get(filePath)
+    !path.isAbsolute
   }
 }

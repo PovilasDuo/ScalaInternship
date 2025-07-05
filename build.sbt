@@ -9,4 +9,5 @@ lazy val root = (project in file("."))
     name := "ScalaInternship",
     libraryDependencies += "com.lihaoyi" %% "upickle" % "4.0.2",
     libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.11.2",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test
 )
