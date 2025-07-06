@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Tower Inside Westminster",
+    "coordinates": [-0.1385, 51.5095]
+  },
+  {
+    "name": "Middle of Nowhere",
+    "coordinates": [10.0000, 50.0000]
+  },
+  {
+    "name": "Sheep Meadow",
+    "coordinates": [-73.9725, 40.7750]
+  },
+  {
+    "name": "West Only",
+    "coordinates": [-73.9800, 40.7750]
+  },
+  {
+    "name": "East Only",
+    "coordinates": [-73.9650, 40.7750]
+  }
+]

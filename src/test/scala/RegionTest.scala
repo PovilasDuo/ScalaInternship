@@ -12,7 +12,7 @@ class RegionTest extends AnyFunSuite{
                   { "name": "Westminster", "coordinates": [ [ [-0.1420, 51.5069], [-0.1357, 51.5069],
                       [-0.1357, 51.5120], [-0.1420, 51.5120] ] ] } ]"""
 
-    val path = os.Path(os.pwd.toString + "/input/" + "Regions.json")
+    val path = os.pwd / os.RelPath("Regions.json")
     if os.exists(path) then os.remove(path)
     os.write(path, regionJSON)
 
@@ -38,8 +38,8 @@ class RegionTest extends AnyFunSuite{
         [55.2744, 25.2769] ] ] },
          { "name": "Westminster", "coordinates": [ [ [-0.1420, 51.5069], [-0.1357, 51.5069],
          [-0.1357, 51.5120], [-0.1420, 51.5120] ] ] } ]"""
-
-    val path = os.Path(os.pwd.toString + "/input/" + "Regions.json")
+    
+    val path = os.pwd / os.RelPath("Regions.json")
     if os.exists(path) then os.remove(path)
     os.write(path, regionJSON)
 

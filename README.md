@@ -2,8 +2,11 @@
 
 You can run this program by using the following in _sbt_:
   runMain Main --regions=C:\absolute\path\to\Regions.json --locations=C:\absolute\path\to\Locations.json --output=Results.json
-  
-Documentation Used During the Project:
+
+_Note: You can use both absolute and relative paths. 
+For relative paths the files need to be placed inside the working directory of the project._  
+
+Documentation used during the project:
 1. https://docs.scala-lang.org/toolkit/json-deserialize.html
 2. https://www.geeksforgeeks.org/scala/how-to-read-and-write-json-files-in-scala/
 3. https://stackoverflow.com/questions/2312881/what-is-the-difference-between-scalas-case-class-and-class

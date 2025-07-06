@@ -8,7 +8,7 @@ class LocationTest extends AnyFunSuite {
       """[ { "name": "Pub", "coordinates": [-0.1276, 51.5072] },
         { "name": "Bar", "coordinates": [-73.9855, 40.7580] } ]"""
 
-    val path = os.Path(os.pwd.toString + "/input/" + "Locations.json")
+    val path = os.pwd / os.RelPath("Locations.json")
     if os.exists(path) then os.remove(path)
     os.write(path, locationJSON)
 
@@ -32,7 +32,7 @@ class LocationTest extends AnyFunSuite {
         { "name": "Bar", "coordinates": [-73.9855, 40.7580] }
       ]"""
 
-    val path = os.Path(os.pwd.toString + "/input/" + "Locations.json")
+    val path = os.pwd / os.RelPath("Locations.json")
     if os.exists(path) then os.remove(path)
     os.write(path, locationJSON)
 

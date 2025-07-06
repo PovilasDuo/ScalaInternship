@@ -7,7 +7,6 @@ case class Location private (name: String, coordinates: Point) {
 }
 
 object Location {
-
   private def fromList(name: String, coordinatesList: List[Double]) : Option[Location] = coordinatesList match {
     case x::y::Nil => Some(Location(name, Point(x,y)))
     case _ => None

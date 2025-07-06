@@ -1,8 +1,6 @@
 package utility
 
 import models.Results
-import os.Path
-
 import java.nio.file.Paths
 
 object Validator {
@@ -14,8 +12,8 @@ object Validator {
     if (validArguments.length != 3) {
       throw new IllegalArgumentException(
         s"Expected region, location and output json file arguments.\n" +
-          s"Received valid arguments: ${validArguments.mkString("", ", ", "")}\n" +
-          s"Received invalid arguments: ${invalidArguments.mkString("", ", ", "")}\n")
+        s"Received valid arguments: ${validArguments.mkString("", ", ", "")}\n" +
+        s"Received invalid arguments: ${invalidArguments.mkString("", ", ", "")}\n")
     }
 
     validArguments.map(_.split("=", 2)).collect {

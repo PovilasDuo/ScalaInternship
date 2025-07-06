@@ -46,7 +46,7 @@ object IO {
   }
 
   def writeResultsFile(results: List[Results], outputFile: String): Unit = {
-    val path = os.Path(os.pwd.toString + "/output/" + outputFile)
+    val path = os.pwd / os.RelPath(outputFile)
     if os.exists(path) then os.remove(path)
     os.write(path, write(results, indent = 2))
   }
