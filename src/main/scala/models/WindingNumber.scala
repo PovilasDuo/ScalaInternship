@@ -14,13 +14,13 @@ object WindingNumber {
   //      Input:   P = a point,
   //               V[] = vertex points of a polygon V[n+1] with V[n]=V[0]
   //      Return:  wn = the winding number (=0 only when P is outside)
-  def windingNumberPointPolygon(V: Polygon, P: Point): Int = {
+  def checkIfPointExistsInPolygon(V: Polygon, P: Point): Boolean = {
     require(V.points.nonEmpty)
 
     val n = V.points.length
 
     @tailrec
-    def loop(V: Polygon, P: Point, wn: Int = 0, i: Int = 0): Int = {
+    def windingNumberPointPolygonLoop(V: Polygon, P: Point, wn: Int = 0, i: Int = 0): Int = {
       if (i >= n) wn
       else
         val nextIndex = (i + 1) % n
@@ -31,9 +31,9 @@ object WindingNumber {
             wn - 1
           else
             wn
-        loop(V, P, newWn, i + 1)
+        windingNumberPointPolygonLoop(V, P, newWn, i + 1)
     }
-    loop(V, P)
+    windingNumberPointPolygonLoop(V, P) != 0
   }
 
   // isLeft(): tests if a point is Left|On|Right of an infinite line.

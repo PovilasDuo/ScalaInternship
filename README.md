@@ -1,7 +1,10 @@
 # ScalaInternship
 
-You can run this program by using the following in _sbt_:
-  runMain Main --regions=C:\absolute\path\to\Regions.json --locations=C:\absolute\path\to\Locations.json --output=Results.json
+You can run this program by using one of the following in _sbt_:
+- runMain Main --regions=C:\absolute\path\to\Regions.json --locations=C:\absolute\path\to\Locations.json --output=C:\absolute\path\to\Results.json
+- runMain Main --regions=Regions.json --locations=Locations.json --output=Results.json
+- runMain Main -r=C:\absolute\path\to\Regions.json -l=C:\absolute\path\to\Locations.json -o=C:\absolute\path\to\Results.json
+- runMain Main -r=Regions.json -l=Locations.json -o=Results.json
 
 _Note: You can use both absolute and relative paths. 
 For relative paths the files need to be placed inside the working directory of the project._  
@@ -39,3 +42,13 @@ Documentation used during the project:
 30. https://docs.scala-lang.org/tour/generic-classes.html
 31. https://rockthejvm.com/articles/getting-started-with-scala-generics
 32. https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+33. https://stackoverflow.com/questions/978252/logging-in-scala
+34. https://index.scala-lang.org/lightbend-labs/scala-logging
+35. https://index.scala-lang.org/awesome/command-line-parsing?sort=stars
+36. https://scopt.github.io/scopt/4.0.0/api/scopt/OParserBuilder.html
+37. https://www.baeldung.com/scala/read-file-from-resources
+38. https://www.scala-lang.org/api/2.13.6/scala/util/Either.html
+39. https://users.scala-lang.org/t/sequence-to-eithers/5852
+40. https://www.scala-exercises.org/cats/traverse
+41. https://stackoverflow.com/questions/23866347/project-a-sequence-of-lefts-from-a-sequence-of-eithers
+42. https://users.scala-lang.org/t/sequence-to-eithers/5852/3
