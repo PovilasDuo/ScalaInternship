@@ -1,9 +1,8 @@
 package utility
 
 import models.{Location, Region, Results}
-import os.Path
 import upickle.default.*
-import utility.Validator.*
+import utility.Logging.logInfo
 import java.nio.file.NoSuchFileException
 import scala.io.Source
 
@@ -13,15 +12,13 @@ object IO {
     val distinctList = originalList.distinctBy(key)
 
     if (!(originalList sameElements distinctList)) {
-      println("Duplicate regions found. Accepting the first entry")
+      logInfo("Duplicate name entries found. Accepting the first entry")
     }
     distinctList
   }
 
   private def readFile(filePath: String): String = {
-    val correctFilePath: Path = if checkIfFilePathIsRelative(filePath) then makePathsAbsolute(filePath)
-    else os.Path(filePath)
-
+    val correctFilePath = os.Path(filePath, os.pwd)
     if (os.exists(correctFilePath)) {
       val source = Source.fromFile(filePath)
       try source.mkString
@@ -31,10 +28,6 @@ object IO {
     else {
       throw new NoSuchFileException(s"Input file was not found with such path: $filePath")
     }
-  }
-
-  def makePathsAbsolute(filePath: String): Path = {
-    os.pwd / filePath
   }
 
   def readLocations(filePath: String): List[Location] = {

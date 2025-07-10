@@ -1,19 +1,22 @@
+import models.Config
 import utility.IO.{readLocations, readRegions, writeResultsFile}
-import utility.Validator.{validateInput, validateOutput}
+import utility.InputParser
+import utility.Logging.logError
 import utility.RegionMatcher.matchLocationsWithRegions
 
 object Main {
   def main(args: Array[String]): Unit = {
-    val argMap = validateInput(args)
-    val regionFile = argMap.getOrElse("regions", sys.error("Missing --regions argument"))
-    val locationFile = argMap.getOrElse("locations", sys.error("Missing --locations argument"))
-    val outputFile = argMap.getOrElse("output", sys.error("Missing --output argument"))
+    val argMap: Config = InputParser.parseInputs(args) match {
+      case Some(config) => config
+      case None =>
+        logError("Invalid input arguments. Use --help to see usage")
+        sys.exit(1)
+    }
 
-    val locations = readLocations(locationFile)
-    val regions = readRegions(regionFile)
+    val locations = readLocations(argMap.locations)
+    val regions = readRegions(argMap.regions)
 
     val results = matchLocationsWithRegions(locations, regions)
-    validateOutput(results)
-    writeResultsFile(results, outputFile)
+    writeResultsFile(results, argMap.output)
   }
 }
